@@ -2,11 +2,13 @@ import { loginUser } from "./db.js";
 
 const loggedInUser = localStorage.getItem("username");
 
-if(loggedInUser){
-    window.location.href = "/home.html";
+if (loggedInUser) {
+  window.location.href = "/home.html";
 }
 
-document.getElementById("login-form").addEventListener("submit", async function (e) {
+document
+  .getElementById("login-form")
+  .addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const username = document.getElementById("login-username").value;
@@ -15,5 +17,4 @@ document.getElementById("login-form").addEventListener("submit", async function 
     console.log(username, password);
 
     await loginUser(username, password);
-
-});
+  });

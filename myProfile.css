@@ -1,0 +1,43 @@
+/* styles.css */
+#all-blogs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.blog {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#blog-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#content-div {
+    margin-bottom: 10px;
+}
+
+#content-div p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+}
+
+#username {
+    font-size: 14px;
+    color: #888;
+    text-align: right;
+}
+
+#navbar{
+    display:flex;
+    justify-content: space-between;
+    
+}
