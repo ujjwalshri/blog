@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form id="register-form">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" placeholder="enter your first name" required>
+
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name"  placeholder="enter your last name" required>
+            <label for="role">select your role</label>
+
+            <select name="role" id="role">
+                <option value="Developer">Dev</option>
+                <option value="Student">Student</option>
+            </select>
+            <br>
+            
+            <label for="register-username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="register-password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Register</button>
+            <p>Already a user ? <a href="login.html">login</a></p>
+        </form>
+    </div>
+    <script type="module" src="db.js"></script>
+    <script type="module" src="register.js"></script>
+</body>
+</html>
