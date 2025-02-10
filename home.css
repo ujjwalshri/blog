@@ -72,9 +72,12 @@
 
     }
     #username{
-        background-color: #3c5c7d;
+        background-color: #dbe9f7;
         border-radius: 20%;
         padding:10px;
         margin-top:120px;
     }
+   #welcome-text{
+    margin-top: 15px;
+   }
    

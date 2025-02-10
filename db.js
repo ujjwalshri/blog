@@ -224,3 +224,38 @@ export const getBlog = async (blogID) => {
     throw error;
   }
 };
+
+
+
+export  const deleteBlog = async (blogID, userID) => {
+  try {
+    if (!db) {
+      db = await openDB();
+    }
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(["blogs"], "readwrite");
+      const store = transaction.objectStore("blogs");
+      const request = store.delete(blogID);
+      request.onsuccess = () => {
+        const userRequest = store.get(userID);
+
+        userRequest.onsuccess = () => {
+          const user = userRequest.result;
+          const updatedBlogs = user.blogs.filter((blog) => blog !== blogID);
+          user.blogs = updatedBlogs;
+          const userUpdateRequest = store.put(user);
+          userUpdateRequest.onsuccess = () => {
+            localStorage.setItem("username", JSON.stringify(user));
+            resolve("Blog deleted successfully");
+          };
+          userUpdateRequest.onerror = () => reject("Error updating user");
+        }
+        resolve("Blog deleted successfully");
+      };
+      request.onerror = () => reject("Error deleting blog");
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

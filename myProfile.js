@@ -54,7 +54,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                                     ? "written by you"
                                     : blog.userID
                                 }</p> 
+                                
                                 <div>`;
     allBlogsDiv.appendChild(blogDiv);
   });
 });
+
