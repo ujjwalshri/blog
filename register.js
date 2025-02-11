@@ -16,15 +16,17 @@ document
     const lastName = document.getElementById("last-name").value.trim();
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
+    const confirmpassword = document.getElementById('confirm-password').value.trim();    
     const role = document.getElementById("role").value.trim();
 
-    console.log(firstName, lastName, username, password, role);
+    console.log(firstName, lastName, username, password, confirmpassword, role);
 
     const registered = await registerUser(
       firstName,
       lastName,
       username,
       password,
+      confirmpassword,
       role
     );
     console.log(registered);

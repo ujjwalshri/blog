@@ -50,10 +50,23 @@
     
     .blog {
         background-color: #f8f9fa;
-
+        margin: 20px;
+        background-image: linear-gradient(to bottom, #eef0f2 39px, #c0c0c0 40px); /* Darker line color */
+        background-size: 100% 40px;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    
+    .blog::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20px;
+        bottom: 0;
+        width: 2px;
+        background-color: #ff6347; /* Red line like a notebook margin */
     }
 
     .blog h2{

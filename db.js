@@ -116,6 +116,8 @@ function isValidPassword(password) {
 
 
 
+
+
 const addUser = (user) => {
   return new Promise((resolve, reject) => {
     let transaction = db.transaction(["users"], "readwrite");
@@ -135,6 +137,7 @@ export const registerUser = async function (
   lastName,
   username,
   password,
+  confirmpassword, 
   role
 ) {
   try {
@@ -145,6 +148,10 @@ export const registerUser = async function (
     const existingUser = await getUser(username);
     if (password.length < 6) {
       alert("Password must be at least 6 characters long");
+      return;
+    }
+    if(password !== confirmpassword){
+      alert("please confirm the passwords");
       return;
     }
     if(isValidPassword(password) === false){
