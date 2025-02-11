@@ -109,6 +109,13 @@ export const getUser = (username) => {
   });
 };
 
+function isValidPassword(password) {
+  const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~\-]).{6,}$/;
+  return regex.test(password);
+}
+
+
+
 const addUser = (user) => {
   return new Promise((resolve, reject) => {
     let transaction = db.transaction(["users"], "readwrite");
@@ -138,6 +145,10 @@ export const registerUser = async function (
     const existingUser = await getUser(username);
     if (password.length < 6) {
       alert("Password must be at least 6 characters long");
+      return;
+    }
+    if(isValidPassword(password) === false){
+      alert("Password must contain at least one number and one special character");
       return;
     }
     if (existingUser) {
@@ -227,35 +238,43 @@ export const getBlog = async (blogID) => {
 
 
 
-export  const deleteBlog = async (blogID, userID) => {
+
+// delete a blog at a particular blog.id and then update the user's blogs array
+
+export const deleteBlog = async (blogID) => {
   try {
     if (!db) {
-      db = await openDB();
+      console.log("Opening database...");
+      db = await openDB();  // Ensure DB is opened
     }
-    return new Promise((resolve, reject) => {
-      const transaction = db.transaction(["blogs"], "readwrite");
-      const store = transaction.objectStore("blogs");
-      const request = store.delete(blogID);
-      request.onsuccess = () => {
-        const userRequest = store.get(userID);
 
-        userRequest.onsuccess = () => {
-          const user = userRequest.result;
-          const updatedBlogs = user.blogs.filter((blog) => blog !== blogID);
-          user.blogs = updatedBlogs;
-          const userUpdateRequest = store.put(user);
-          userUpdateRequest.onsuccess = () => {
-            localStorage.setItem("username", JSON.stringify(user));
-            resolve("Blog deleted successfully");
-          };
-          userUpdateRequest.onerror = () => reject("Error updating user");
-        }
-        resolve("Blog deleted successfully");
+    // Start the transaction to delete the blog
+    const transaction = db.transaction(["blogs"], "readwrite");
+    const store = transaction.objectStore("blogs");
+
+    // Try deleting the blog by blogID
+    const request = store.delete(blogID);
+    console.log(`Attempting to delete blog with ID: ${blogID}`);
+
+    // Await the delete request
+    await new Promise((resolve, reject) => {
+      request.onsuccess = () => {
+        console.log(`Blog with ID: ${blogID} deleted successfully`);
+        resolve();  // Resolve when the blog is deleted successfully
       };
-      request.onerror = () => reject("Error deleting blog");
+      request.onerror = (event) => {
+        console.error("Error deleting blog:", event.target.error);
+        reject("Failed to delete blog");
+      };
     });
+
+    alert("Blog deleted successfully!");
+
+    return true; // Return true after successfully deleting the blog
+
   } catch (error) {
     console.error("Error:", error);
-    throw error;
+    alert("Error deleting the blog.");
+    return false; // Return false if there is an error
   }
 };

@@ -1,7 +1,7 @@
 #notebook {
     width: calc(100% - 80px); /* Adjust width to account for margins */
     height: 100%;
-    padding: 20px;
+    padding: 30px;
     margin: 10px auto; /* Center the notebook */
     background-color: #accaf1;
     font-family: 'Roboto', sans-serif;
@@ -33,4 +33,25 @@
 
 #navbar a:hover {
     color: #71a9e6; /* Change color on hover */
+}
+
+#title{
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#blog{
+    font-size: 0.5;
+    font-weight: 100;
+    margin-bottom: 10px;
+    padding:10px;
+    border-radius: 10px;
+}
+
+#submit-Blog{
+    
+    padding: 10px;
 }

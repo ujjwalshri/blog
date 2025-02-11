@@ -1,4 +1,4 @@
-import { getAllBlogs } from "./db.js";
+import { getAllBlogs, deleteBlog } from "./db.js";
 
 const loggedInUser = JSON.parse(localStorage.getItem("username"));
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   console.log(myBlogs);
-  myBlogs.forEach((blog) => {
+  myBlogs.reverse().forEach((blog) => {
     const allBlogsDiv = document.getElementById("all-blogs");
 
     const blogDiv = document.createElement("div");
@@ -49,14 +49,25 @@ document.addEventListener("DOMContentLoaded", async function () {
                                 <div id="content-div"><p>${
                                   blog.content
                                 }</p></div>
-                                <p id="username">By ${
+                                <p id="username"> ${
                                   blog.userID === loggedInUser.username
                                     ? "written by you"
                                     : blog.userID
                                 }</p> 
-                                
+                               
                                 <div>`;
     allBlogsDiv.appendChild(blogDiv);
+
+    // const deleteButton = blogDiv.querySelector(".delete-btn");
+    // deleteButton.addEventListener("click", async function () {
+    //   const blogId = deleteButton.getAttribute("data-id");
+    //   console.log(blogId);
+    //    const message = await deleteBlog(blogId, loggedInUser.username);
+    //   alert(message);
+      
+    //   allBlogsDiv.removeChild(blogDiv);
+    // });
+    
   });
 });
 

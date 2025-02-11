@@ -15,6 +15,16 @@ document.getElementById("logout-button").addEventListener("click", function () {
   window.location.href = "/login.html";
 });
 
+
+function countWords(content){
+  const words = content.split(" ");
+  return words.length;
+}
+
+
+
+
+
 const submitBlog = document.getElementById("submit-Blog");
 console.log(document.getElementById("submit-Blog"));
 submitBlog.addEventListener("click", async function () {
@@ -28,13 +38,17 @@ submitBlog.addEventListener("click", async function () {
     alert("Content is required");
     return;
   }
+  if(countWords(content) < 20){
+    alert(`Content must be at least 20 words long  ${countWords(content)}/20`);
+    return;
+  }
   const loggedInUser = JSON.parse(localStorage.getItem("username"));
   const blog = {
     userID: loggedInUser.username,
     title,
     content,
   };
-
+  
   const message = await addBlog(blog, loggedInUser.username);
   alert(message);
 });

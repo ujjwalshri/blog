@@ -5,11 +5,11 @@
     padding: 30px;
     border-radius: 8px;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 100px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 button{
-    width: 50px;
+    width: 70px;
     padding: 5px;
     margin: 5px;
     border: none;
@@ -21,4 +21,7 @@ button{
 input{
     width: 100%;
     margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }

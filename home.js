@@ -32,22 +32,41 @@ document.addEventListener("DOMContentLoaded", async function () {
   const blogs = await getAllBlogs();
 
   console.log(blogs);
-  blogs.map((blog, id) => {
-    const allBlogsDiv = document.getElementById("allBlogs");
+  const allBlogsDiv = document.getElementById("allBlogs");
+
+  // Loop through blogs in reverse order
+  for (let i = blogs.length - 1; i >= 0; i--) {
+    const blog = blogs[i];
 
     const blogDiv = document.createElement("div");
     blogDiv.className = "blog";
-    blogDiv.innerHTML = `<div><h2 id="blog-title">${blog.title}</h2>
-                            <div id="content-div"><p>${blog.content}</p></div>
-                            <p id="username"> ${
-                              blog.userID === user.username
-                                ? "Written by you"
-                                : blog.userID
-                            }</p> 
-                            <div>`;
+
+    // Dynamically create the blog content
+    blogDiv.innerHTML = `
+      <div>
+        <p class="username"> ${
+          blog.userID === user.username ? "Written by you" : blog.userID
+        }</p>
+        <h2 id="blog-title">${blog.title}</h2>
+        <div id="content-div"><p>${blog.content}</p></div>
+      </div>`;
+
+    // Add the blogDiv to the container
     allBlogsDiv.appendChild(blogDiv);
-  });
+
+    // Attach event listener to the "username" paragraph inside the current blog
+    const blogUsername = blogDiv.querySelector(".username");
+    blogUsername.addEventListener("click", function () {
+      console.log(blogUsername.innerText);
+      if (blogUsername.innerText === "Written by you") {
+        window.location.href = "/myProfile.html";
+      }else{
+        window.location.href =  `/userProfile.html?userID=${blogUsername.innerText}`
+      }
+    });
+  }
 });
+
 
 document.addEventListener("DOMContentLoaded", async function () {
   const loggedInUser = JSON.parse(localStorage.getItem("username"));
